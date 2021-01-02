@@ -1,5 +1,6 @@
-# Node API Library for easyVerein®
+[<img src="https://img.shields.io/npm/v/easyverein">](https://www.npmjs.com/package/easyverein)
 
+# Node API Library for easyVerein®  
  <img src="https://easyverein.com/static/logo.png" alt="easyVerein® Logo" height="100">
 
 This is a typed Node.js API Library for the **easyVerein® web service**.  

@@ -36,7 +36,7 @@ export const performRequest = (url: string) =>
     headers: {
       Authorization: `Token ${TOKEN}`,
     },
-  });
+  }).then((response) => response.json());
 
 /**
  * Recursiveley performs requests to fetch paged data. If no next page is available, the array will be returned.

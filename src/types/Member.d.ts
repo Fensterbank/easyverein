@@ -1,0 +1,30 @@
+import { ContactDetail } from './ContactDetail';
+import { Organization } from './Organization';
+
+export type Member = {
+  readonly id: string;
+  readonly contactDetails: ContactDetail;
+  readonly org: Organization;
+  readonly email: string;
+  readonly model: string;
+  readonly _deleteAfterDate?: string;
+  readonly _deletedBy?: number;
+  readonly _profilePicture?: string;
+  readonly joinDate: string;
+  readonly resignationDate?: string;
+  readonly declarationOfApplication?: string;
+  readonly declarationOfResignation?: string;
+  readonly declarationOfConsent?: string;
+  readonly membershipNumber: string;
+  readonly _paymentStartDate?: string;
+  readonly paymentAmount?: string;
+  readonly paymentIntervallMonths: number;
+  readonly useBalanceForMembershipFee: boolean;
+  readonly bulletinBoardNewPostNotification: boolean;
+  readonly integrationDosbSport: readonly unknown[];
+  readonly integrationDosbGender?: string;
+  readonly _isApplication: boolean;
+  readonly _relatedMember?: string;
+  readonly sepaMandateFile?: string;
+  readonly memberGroups: readonly number[];
+};

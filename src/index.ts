@@ -1,1 +1,2 @@
-export * from './lib/number';
+export { Client } from './lib/';
+export * from './types';

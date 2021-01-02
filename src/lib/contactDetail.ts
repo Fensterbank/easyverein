@@ -1,5 +1,5 @@
-import { Collection } from '../types';
-import { ContactDetail } from '../types/ContactDetail';
+
+import { Collection, ContactDetail } from '../types';
 
 import {
   createFieldQuery,

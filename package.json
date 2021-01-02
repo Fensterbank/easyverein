@@ -1,6 +1,6 @@
 {
   "name": "easyverein",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "API Library for easyVerein®",
   "author": {
     "name": "Frédéric Bolvin <frederic@bol.vin> (https://f-bit.software)"
@@ -45,6 +45,7 @@
     "node": ">=10"
   },
   "dependencies": {
+    "@types/node-fetch": "^2.5.7",
     "node-fetch": "^2.6.1",
     "query-string": "^6.13.8"
   },

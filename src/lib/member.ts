@@ -1,5 +1,4 @@
-import { Collection } from '../types';
-import { Member } from '../types/Member';
+import { Collection, Member } from '../types';
 
 import {
   createFieldQuery,

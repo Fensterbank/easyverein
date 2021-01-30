@@ -19,19 +19,18 @@ npm install easyverein
 
 ## Getting started
 
-### Import and initialize
+### Set the API token globally
 ```typescript
-  import { Client, Member, Organization } from 'easyverein';
+  import { setApiToken } from 'easyverein';
 
-  // First initialize the Client with the easyVerein® authentication token.
-  const client = Client('token');
+  setApiToken('token');
 ```
 ### Get the organization
-Since the organization api routes aren't working properly for normal user accounts, this is done with a workaround.  
-We are fetching the first page of members and return the first member's org property.  
 
 ```typescript
-  const org: Organization = await client.getOrganization();
+  import { getOrganization } from 'easyverein';
+
+  const org = await getOrganization();
 
   console.log(`
     Our Organization is ${org.name}. Let's use the primary color ${org.primaryColor}
@@ -44,8 +43,10 @@ Without that parameter, a lot of fields will be populated by default. (~ 23.5 KB
 You can check the type `Member` to see which fields can be populated.
 
 ```typescript
+  import { getMembers, getMember } from 'easyverein';
+
   // Get all members with a small set of attributes
-  const members: Member[] = await client.getMembers(
+  const members = await getMembers(
     ['id', 'contactDetails{name,dateOfBirth}', 'membershipNumber', 'memberGroups', 'joinDate']
   );
 
@@ -53,7 +54,7 @@ You can check the type `Member` to see which fields can be populated.
 
 
   // Get a specific member with two attributes
-  const member: Member = await client.getMember('123', ['contactDetails{name}', 'membershipNumber']);
+  const member = await getMember('123', ['contactDetails{name}', 'membershipNumber']);
 
   console.log(`Hello ${member.contactDetails.name}, your membership number is ${member.membershipNumber}.`);
 ```
@@ -68,15 +69,32 @@ Without that parameter, a lot of fields will be populated by default. (~ 12 KB p
 You can check the type `ContactDetail` to see which fields can be populated.
 
 ```typescript
+  import { getContactDetails } from 'easyverein';
+
   // Get all members with a small set of attributes
-  const contacts: ContactDetail[] = await client.getContactDetails(
+  const contacts = await client.getContactDetails(
     ['salutation', 'firstName', 'familyName', 'mobilePhone', 'referencedMemberPK']
   );
 
   // Get a specific contact with two attributes
-  const contact: ContactDetail = await client.getMember('123', ['salutation', 'familyName']);
+  const contact = await client.getContactDetails('123', ['salutation', 'familyName']);
   console.log(`Hello ${contact.salutation} ${contact.familyName}!`);
 ```
+
+## Developing and debugging this libary
+To start working, run the `watch:build` task using [`npm`](https://docs.npmjs.com/getting-started/what-is-npm) or [`yarn`](https://yarnpkg.com/).
+
+```sh
+npm run watch:build
+```
+
+In another terminal tab/window, run the `watch:test` task while passing the api token as environment variable:
+
+```sh
+EASYVEREIN_TOKEN=123456acd43534dfe npm run watch:test
+```
+
+These watch tasks make development much faster and more interactive. 
 
 ## Author & License
 MIT License. Built with ❤️ by Frédéric Bolvin, [f-bit software](https://f-bit.software).  

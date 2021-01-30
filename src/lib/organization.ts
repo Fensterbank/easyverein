@@ -1,21 +1,18 @@
-import { Collection, Member, Organization } from '../types';
+import { Collection, Organization } from '../types';
 
 import {
-  createFieldQuery,
   createParameterizedApiRoute,
   performRequest,
 } from '.';
 
 /**
  * Returns the organization
- * Since organization routes aren't working properly for normal users, we fetch the first page of members and take the first member's org.
- * @returns A organization object.
+ * @returns An organization object.
  */
 export const getOrganization = (): Promise<Organization> =>
   performRequest(
-    createParameterizedApiRoute(`/member`, {
-      query: createFieldQuery(['org']),
+    createParameterizedApiRoute(`/organization`, {
     })
-  ).then((response: Collection<Member>) =>
-    response.results[0] ? response.results[0].org : null
+  ).then((response: Collection<Organization>) =>
+    response.results[0] ? response.results[0] : null
   );

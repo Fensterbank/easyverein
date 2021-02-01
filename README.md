@@ -19,11 +19,14 @@ npm install easyverein
 
 ## Getting started
 
-### Set the API token globally
+### Set global API token and - if necessary - API version
 ```typescript
-  import { setApiToken } from 'easyverein';
+  import { setApiToken, setApiVersion } from 'easyverein';
 
   setApiToken('token');
+
+  // by default v1 is used. You can also define to use v1.1, which is under development and considered UNSTABLE! Usage on own risk!
+  setApiVersion('v1.1');
 ```
 ### Get the organization
 
@@ -37,9 +40,28 @@ npm install easyverein
     and secondary color ${org.secondaryColor} to theme some things.`
   );
 ```
+
+### Query Parameter
+By default the API returns all fields, which is resulting in huge objects. (~ 23.5 KB per member item).  
+The API supports a nestable query parameter containing all needed fields.
+
+**A good sample for a get request with nested query:**
+
+`GET https://easyverein.com/api/v1.1/member?query={id,contactDetails{id,name},org{id,name,short},email,membershipNumber}`
+
+In most cases, you can pass that query string as a parameter to the client method.
+
+```typescript
+  import { getMembers } from 'easyverein';
+
+  // Get all members with a small set of attributes
+  const members = await getMembers(
+    '{id,contactDetails{id,name},org{id,name,short},email,membershipNumber}'
+  );
+```
+
 ### Members
-You can specify the parameter `query: string[]` to restrict the fields returned by the API.
-Without that parameter, a lot of fields will be populated by default. (~ 23.5 KB per returned member item)  
+You can specify the parameter `query: string` to restrict the fields returned by the API.  
 You can check the type `Member` to see which fields can be populated.
 
 ```typescript
@@ -47,14 +69,14 @@ You can check the type `Member` to see which fields can be populated.
 
   // Get all members with a small set of attributes
   const members = await getMembers(
-    ['id', 'contactDetails{name,dateOfBirth}', 'membershipNumber', 'memberGroups', 'joinDate']
+    '{id,contactDetails{name,dateOfBirth},membershipNumber,memberGroups,joinDate}'
   );
 
   members.forEach(m => console.log(m.contactDetails.name))
 
 
   // Get a specific member with two attributes
-  const member = await getMember('123', ['contactDetails{name}', 'membershipNumber']);
+  const member = await getMember('123', 'contactDetails{name},membershipNumber');
 
   console.log(`Hello ${member.contactDetails.name}, your membership number is ${member.membershipNumber}.`);
 ```
@@ -64,8 +86,7 @@ Contact details can be referenced to a member id, but don't have to.
 If you need all kind of contacts (e.g. Companies and Supplier), you can get them with this method.  
 If you only want to get the details of your real members, it's better to use the `getMembers` method and include the contact details in the query.  
   
-You can specify the parameter `query: string[]` to restrict the fields returned by the API.
-Without that parameter, a lot of fields will be populated by default. (~ 12 KB per returned contact item)  
+You can specify the parameter `query: string` to restrict the fields returned by the API.  
 You can check the type `ContactDetail` to see which fields can be populated.
 
 ```typescript
@@ -73,11 +94,11 @@ You can check the type `ContactDetail` to see which fields can be populated.
 
   // Get all members with a small set of attributes
   const contacts = await client.getContactDetails(
-    ['salutation', 'firstName', 'familyName', 'mobilePhone', 'referencedMemberPK']
+    '{salutation,firstName,familyName,mobilePhone,referencedMemberPK}'
   );
 
   // Get a specific contact with two attributes
-  const contact = await client.getContactDetails('123', ['salutation', 'familyName']);
+  const contact = await client.getContactDetails('123', '{salutation,familyName}');
   console.log(`Hello ${contact.salutation} ${contact.familyName}!`);
 ```
 
@@ -85,16 +106,18 @@ You can check the type `ContactDetail` to see which fields can be populated.
 To start working, run the `watch:build` task using [`npm`](https://docs.npmjs.com/getting-started/what-is-npm) or [`yarn`](https://yarnpkg.com/).
 
 ```sh
-npm run watch:build
+yarn watch:build
 ```
 
 In another terminal tab/window, run the `watch:test` task while passing the api token as environment variable:
 
 ```sh
-EASYVEREIN_TOKEN=123456acd43534dfe npm run watch:test
+EASYVEREIN_TOKEN=123456acd43534dfe yarn watch:test
 ```
 
 These watch tasks make development much faster and more interactive. 
+  
+To test your development directly, you can write unit tests in `index.spec.ts`.  
 
 ## Author & License
 MIT License. Built with ❤️ by Frédéric Bolvin, [f-bit software](https://f-bit.software).  

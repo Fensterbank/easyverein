@@ -9,9 +9,10 @@ import {
  * Returns the organization
  * @returns An organization object.
  */
-export const getOrganization = (): Promise<Organization> =>
+export const getOrganization = (query?: string): Promise<Organization> =>
   performRequest(
     createParameterizedApiRoute(`/organization`, {
+      query,
     })
   ).then((response: Collection<Organization>) =>
     response.results[0] ? response.results[0] : null

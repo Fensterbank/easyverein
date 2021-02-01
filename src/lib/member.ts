@@ -1,7 +1,6 @@
 import { Collection, Member } from '../types';
 
 import {
-  createFieldQuery,
   createParameterizedApiRoute,
   performPagedRequest,
   performRequest,
@@ -10,28 +9,28 @@ import {
 /**
  * Returns the member with the given ID
  * @param id - The id of the member.
- * @param query - The fields to query for. It is highly recommended to use this to make the response as small as possible.
+ * @param query - String containing fields to query for, e.g. '{id,contactDetails{id,name},org{id,name,short},email,membershipNumber}'. It is highly recommended to use this to make the response as small as possible.
  * @returns A member object.
  */
 export const getMember = (
   id: string,
-  query?: readonly string[]
+  query?: string
 ): Promise<Member> =>
   performRequest(
     createParameterizedApiRoute(`/member/${id}`, {
-      query: query ? createFieldQuery(query) : undefined,
+      query: query,
     })
   );
 
 /**
  * Returns all members by fetching all pages
- * @param query - The fields to query for. It is highly recommended to use this to make the response as small as possible.
+ * @param query - String containing fields to query for, e.g. '{id,contactDetails{id,name},org{id,name,short},email,membershipNumber}'. It is highly recommended to use this to make the response as small as possible.
  * @returns A member object.
  */
-export const getMembers = (query?: readonly string[]): Promise<Member[]> =>
+export const getMembers = (query?: string): Promise<Member[]> =>
   performPagedRequest(
     createParameterizedApiRoute('/member', {
-      query: query ? createFieldQuery(query) : undefined,
+      query: query,
     }),
     []
   );
@@ -41,7 +40,7 @@ export const getMembers = (query?: readonly string[]): Promise<Member[]> =>
  */
 export const countMembers = (): Promise<number> =>
   performRequest(
-    createParameterizedApiRoute('/members', { query: createFieldQuery['id'] })
+    createParameterizedApiRoute('/members', { query: '{id}' })
   )
     .then((response) => response.json)
     .then((json: Collection<Member>) => json.count);

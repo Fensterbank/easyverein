@@ -2,7 +2,6 @@
 import { Collection, ContactDetail } from '../types';
 
 import {
-  createFieldQuery,
   createParameterizedApiRoute,
   performPagedRequest,
   performRequest,
@@ -11,30 +10,30 @@ import {
 /**
  * Returns the contact detail with the given ID
  * @param id - The id of the member.
- * @param query - The fields to query for. It is highly recommended to use this to make the response as small as possible.
+ * @param query - String containing fields to query for, e.g. '{id,contactDetails{id,name},org{id,name,short},email,membershipNumber}'. It is highly recommended to use this to make the response as small as possible.
  * @returns A member object.
  */
 export const getContactDetail = (
   id: string,
-  query?: readonly string[]
+  query?: string
 ): Promise<ContactDetail> =>
   performRequest(
     createParameterizedApiRoute(`/contact-details/${id}`, {
-      query: query ? createFieldQuery(query) : undefined,
+      query: query,
     })
   );
 
 /**
  * Returns all contact details by fetching all pages
- * @param query - The fields to query for. It is highly recommended to use this to make the response as small as possible.
+ * @param query - String containing fields to query for, e.g. '{id,contactDetails{id,name},org{id,name,short},email,membershipNumber}'. It is highly recommended to use this to make the response as small as possible.
  * @returns A member object.
  */
 export const getContactDetails = (
-  query?: readonly string[]
+  query?: string
 ): Promise<ContactDetail[]> =>
   performPagedRequest(
     createParameterizedApiRoute('/contact-details', {
-      query: query ? createFieldQuery(query) : undefined,
+      query: query,
     }),
     []
   );
@@ -45,7 +44,7 @@ export const getContactDetails = (
 export const countContactDetails = (): Promise<number> =>
   performRequest(
     createParameterizedApiRoute('/contact-details', {
-      query: createFieldQuery['id'],
+      query: '{id}',
     })
   )
     .then((response) => response.json)

@@ -1,7 +1,8 @@
 import fetch from 'node-fetch';
 import { stringify } from 'query-string';
 
-const EASYVEREIN_HOST = 'https://easyverein.com/api/v1.1';
+const EASYVEREIN_HOST = 'https://easyverein.com/api';
+let API_VERSION = 'v1'
 let TOKEN = '';
 
 export const createParameterizedApiRoute = (
@@ -16,15 +17,12 @@ export const createParameterizedApiRoute = (
   return `${route}?${stringify(params)}`;
 };
 
-export const createFieldQuery = (query: readonly string[]) =>
-  `{${query.join(',')}}`;
-
 /**
  * Perform an authenticated GET request to the given url.
  * @param url The url to fetch
  */
 export const performRequest = (url: string) => {
-  const fullUrl = url.startsWith('http') ? url : `${EASYVEREIN_HOST}${url}`;
+  const fullUrl = url.startsWith('http') ? url : `${EASYVEREIN_HOST}/${API_VERSION}${url}`;
   const headers = {
     Authorization: `Token ${TOKEN}`,
   };
@@ -53,4 +51,11 @@ export const setApiToken = (token: string) => {
     );
 
   TOKEN = token
+}
+
+export const setApiVersion = (version: 'v1' | 'v1.1') => {
+  if (version !== 'v1' && version !== 'v1.1')
+    throw new Error('Invalid version string.')
+
+  API_VERSION = version;
 }

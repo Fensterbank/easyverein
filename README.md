@@ -3,10 +3,13 @@
 # Node API Library for easyVerein®  
  <img src="https://easyverein.com/static/logo.png" alt="easyVerein® Logo" height="100">
 
-This is a typed Node.js API Library for the **easyVerein® web service**.  
-Since the API is still in [early development](https://easyverein.com/api/v1/), only a few methods are implemented.  
+This is a typed Node.js API client for the **easyVerein® web service**.  
+Since this client is in early development, only a few methods are implemented.  
 
 This library is **inofficial** and therefore is **not developed or supported by** [easyVerein®](https://easyverein.com/) and [SD Software-Design GmbH](https://software-design.de/).
+
+Official Library Documentation [easyverein.com/api/documentation](https://easyverein.com/api/documentation/)  
+_You should be logged in to see anything useful there._
 
 ## Installation
 ```bash
@@ -25,8 +28,8 @@ npm install easyverein
 
   setApiToken('token');
 
-  // by default v1 is used. You can also define to use v1.1, which is under development and considered UNSTABLE! Usage on own risk!
-  setApiVersion('v1.1');
+  // by default stable v1.1 is used. You can also define to use the unstable v1.2, which is under development and considered UNSTABLE! Usage on own risk!
+  setApiVersion('v1.2');
 ```
 ### Get the organization
 

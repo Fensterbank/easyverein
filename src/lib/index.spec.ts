@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import { getMembers } from './member';
+import { getMember, getMembers } from './member';
 import { getOrganization } from './organization';
 
 import { setApiToken } from '.';
@@ -42,4 +42,14 @@ test('we can fetch all members with only the id', async (t) => {
     t.falsy(m.email);
   });
   t.true(members.length > 0);
+});
+
+
+test('we can fetch a single member by id', async (t) => {
+  const id = '414902';
+  const member = await getMember(id, '{id,contactDetails{name, privateEmail},email,membershipNumber,memberGroups}');
+  t.is<number>(member.id, parseInt(id, 10));
+  t.truthy(member.membershipNumber);
+  t.truthy(member.email);
+  t.falsy(member.joinDate);
 });

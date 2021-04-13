@@ -2,7 +2,7 @@ import { ContactDetail } from './ContactDetail';
 import { Organization } from './Organization';
 
 export type Member = {
-  readonly id: string;
+  readonly id: number;
   readonly contactDetails: ContactDetail;
   readonly org: Organization;
   readonly email: string;

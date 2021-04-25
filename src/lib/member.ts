@@ -17,7 +17,7 @@ export const getMember = (
   query?: string
 ): Promise<Member> =>
   performRequest(
-    createParameterizedApiRoute(`/member/${id}`, {
+    createParameterizedApiRoute(`/member/${id}/`, {
       query: query,
     })
   );
@@ -29,7 +29,7 @@ export const getMember = (
  */
 export const getMembers = (query?: string): Promise<Member[]> =>
   performPagedRequest(
-    createParameterizedApiRoute('/member', {
+    createParameterizedApiRoute('/member/', {
       query: query,
     }),
     []
@@ -40,7 +40,7 @@ export const getMembers = (query?: string): Promise<Member[]> =>
  */
 export const countMembers = (): Promise<number> =>
   performRequest(
-    createParameterizedApiRoute('/members', { query: '{id}' })
+    createParameterizedApiRoute('/members/', { query: '{id}' })
   )
     .then((response) => response.json)
     .then((json: Collection<Member>) => json.count);

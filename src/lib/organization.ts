@@ -11,7 +11,7 @@ import {
  */
 export const getOrganization = (query?: string): Promise<Organization> =>
   performRequest(
-    createParameterizedApiRoute(`/organization`, {
+    createParameterizedApiRoute(`/organization/`, {
       query,
     })
   ).then((response: Collection<Organization>) =>

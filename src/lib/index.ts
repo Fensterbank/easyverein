@@ -21,13 +21,16 @@ export const createParameterizedApiRoute = (
  * Perform an authenticated GET request to the given url.
  * @param url The url to fetch
  */
-export const performRequest = (url: string) => {
+export const performRequest = (url: string, method = 'GET', jsonBody?: any) => {
   const fullUrl = url.startsWith('http') ? url : `${EASYVEREIN_HOST}/${API_VERSION}${url}`;
   const headers = {
     Authorization: `Token ${TOKEN}`,
+    'Content-Type': 'application/json',
   };
   return fetch(fullUrl, {
     headers,
+    method,
+    body: jsonBody ? JSON.stringify(jsonBody) : undefined,
   }).then((response) => response.json());
 }
 

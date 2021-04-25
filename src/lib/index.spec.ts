@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import { getMember, getMembers } from './member';
+import { getMember, getMembers, updateMember } from './member';
 import { getOrganization } from './organization';
 
 import { setApiToken } from '.';
@@ -52,4 +52,12 @@ test('we can fetch a single member by id', async (t) => {
   t.truthy(member.membershipNumber);
   t.truthy(member.email);
   t.falsy(member.joinDate);
+});
+
+test('we can change the membership number of a single member', async (t) => {
+  const id = 414902;
+  const randomMembership = (Math.random() * 100).toFixed();
+  const member = await updateMember(id, { membershipNumber: randomMembership })
+  t.is<number>(member.id, id);
+  t.is(member.membershipNumber, randomMembership);
 });

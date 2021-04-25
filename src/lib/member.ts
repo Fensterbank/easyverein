@@ -44,3 +44,12 @@ export const countMembers = (): Promise<number> =>
   )
     .then((response) => response.json)
     .then((json: Collection<Member>) => json.count);
+
+/**
+ * Updates the member with the given ID
+ * @param id - The id of the member.
+ * @param data - The data to update as javascript object
+ * @returns The updated member
+ */
+export const updateMember = (id: number, data: any): Promise<Member> =>
+  performRequest(`/member/${id}/`, 'PATCH', data);

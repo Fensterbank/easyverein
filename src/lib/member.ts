@@ -13,7 +13,7 @@ import {
  * @returns A member object.
  */
 export const getMember = (
-  id: string,
+  id: number,
   query?: string
 ): Promise<Member> =>
   performRequest(

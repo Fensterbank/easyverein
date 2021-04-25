@@ -46,9 +46,9 @@ test('we can fetch all members with only the id', async (t) => {
 
 
 test('we can fetch a single member by id', async (t) => {
-  const id = '414902';
+  const id = 414902;
   const member = await getMember(id, '{id,contactDetails{name, privateEmail},email,membershipNumber,memberGroups}');
-  t.is<number>(member.id, parseInt(id, 10));
+  t.is<number>(member.id, id);
   t.truthy(member.membershipNumber);
   t.truthy(member.email);
   t.falsy(member.joinDate);

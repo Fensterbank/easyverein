@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import { stringify } from 'query-string';
 
 const EASYVEREIN_HOST = 'https://easyverein.com/api';
-let API_VERSION = 'v1.3'
+let API_VERSION = 'v1.4'
 let TOKEN = '';
 
 export const createParameterizedApiRoute = (
@@ -56,8 +56,8 @@ export const setApiToken = (token: string) => {
   TOKEN = token
 }
 
-export const setApiVersion = (version: 'v1.2' | 'v1.3' | 'v1.4') => {
-  const allowedStrings = ['v1.2', 'v1.3', 'v1.4']
+export const setApiVersion = (version: 'v1.3' | 'v1.4' | 'v1.5' | 'v1.6') => {
+  const allowedStrings = ['v1.3', 'v1.4', 'v1.5', 'v1.6']
   if (!allowedStrings.includes(version))
     throw new Error(`Invalid version string. Allowed values: ${allowedStrings.join(', ')}`);
 

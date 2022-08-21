@@ -28,8 +28,8 @@ npm install easyverein
 
   setApiToken('token');
 
-  // by default stable v1.3 is used. You can also define to use the deprecated v1.2 or the unstable v1.4, which is under development and considered UNSTABLE! Usage on own risk!
-  setApiVersion('v1.4');
+  // by default stable v1.4 is used. You can also define to use the deprecated v1.3 or the latest v1.5, which is under development and considered UNSTABLE! Usage on own risk!
+  setApiVersion('v1.4'); // this line is optional, to always use the default version of this library
 ```
 ### Get the organization
 

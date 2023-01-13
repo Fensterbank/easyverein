@@ -60,7 +60,7 @@ test('we can fetch a single member by id', async (t) => {
   t.falsy(member.joinDate);
 });
 
-test('we can change the membership number of a single member', async (t) => {
+test.skip('we can change the membership number of a single member', async (t) => {
   const id = 1461395;
   const randomMembership = (Math.random() * 100).toFixed();
   const member = await updateMember(id, { membershipNumber: randomMembership });

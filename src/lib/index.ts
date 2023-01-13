@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import { stringify } from 'query-string';
 
 const EASYVEREIN_HOST = 'https://easyverein.com/api';
-let API_VERSION = 'v1.4'
+let API_VERSION = 'v1.4';
 let TOKEN = '';
 
 export const createParameterizedApiRoute = (
@@ -32,7 +32,7 @@ export const performRequest = (url: string, method = 'GET', jsonBody?: any): Pro
     method,
     body: jsonBody ? JSON.stringify(jsonBody) : undefined,
   }).then((response) => response.json());
-}
+      }
 
 /**
  * Recursiveley performs requests to fetch paged data. If no next page is available, the array will be returned.
@@ -42,10 +42,10 @@ export const performRequest = (url: string, method = 'GET', jsonBody?: any): Pro
 export const performPagedRequest = (url: string, arr: any[]) =>
   performRequest(url)
     .then((json) => {
-      arr.push(...json.results);
-      if (!json.next) return arr;
-      return performPagedRequest(json.next, arr);
-    });
+    arr.push(...json.results);
+    if (!json.next) return arr;
+    return performPagedRequest(json.next, arr);
+  });
 
 export const setApiToken = (token: string) => {
   if (!token)
@@ -62,4 +62,6 @@ export const setApiVersion = (version: 'v1.3' | 'v1.4' | 'v1.5' | 'v1.6') => {
     throw new Error(`Invalid version string. Allowed values: ${allowedStrings.join(', ')}`);
 
   API_VERSION = version;
-}
+};
+
+export const getApiVersion = (): Readonly<string> => API_VERSION;

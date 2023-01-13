@@ -35,3 +35,16 @@ export const getInvoices = (
     }),
     []
   );
+
+export const getInvoicesBy = (
+  filter: object,
+  query?: string
+): Promise<Invoice[]> =>
+  performPagedRequest(
+    createParameterizedApiRoute('/invoice/', {
+      ...filter,
+      query: query
+    }
+    ),
+    []
+  );

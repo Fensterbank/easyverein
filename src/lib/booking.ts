@@ -35,3 +35,16 @@ export const getBookings = (
     }),
     []
   );
+
+export const getBookingsBy = (
+  filter: unknown[],
+  query?: string
+): Promise<Booking[]> =>
+  performPagedRequest(
+    createParameterizedApiRoute('/booking/', {
+      ...filter,
+      query: query
+    }
+    ),
+    []
+  );

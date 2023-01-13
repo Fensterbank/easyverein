@@ -8,7 +8,7 @@ export type Booking = {
   readonly model: string;
   readonly amount: number;
   //readonly bankAccount?: BankAccount;
-  //readonly billingAccount: BillingAccount;
+  readonly billingAccount: string;
   readonly _deleteAfterDate?: string;
   readonly _deletedBy?: string;
   readonly description: string;

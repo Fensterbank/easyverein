@@ -5,7 +5,7 @@ export type Member = {
   readonly id: number;
   readonly contactDetails: ContactDetail;
   readonly org: Organization;
-  readonly email: string;
+  readonly emailOrUserName: string;
   readonly model: string;
   readonly _deleteAfterDate?: string;
   readonly _deletedBy?: number;
@@ -26,5 +26,5 @@ export type Member = {
   readonly _isApplication: boolean;
   readonly _relatedMember?: string;
   readonly sepaMandateFile?: string;
-  readonly memberGroups: readonly number[];
+  readonly memberGroups: readonly string[];
 };

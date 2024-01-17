@@ -13,6 +13,7 @@ export {
   updateUserCustomField,
 } from './lib/customfield';
 export { countMembers, getMember, getMembers } from './lib/member';
+export { getInvoice, getInvoices, getInvoicesBy } from './lib/invoice';
 export { getOrganization } from './lib/organization';
 export {
   Collection,

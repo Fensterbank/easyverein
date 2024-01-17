@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import { stringify } from 'query-string';
 
 const EASYVEREIN_HOST = 'https://easyverein.com/api';
-let API_VERSION = 'v1.4'
+let API_VERSION = 'v1.6'
 let TOKEN = '';
 
 export const createParameterizedApiRoute = (

@@ -33,7 +33,7 @@ test('we can fetch all members', async (t) => {
   // Every member contains the email field and a lot of other fields
   members.map((m) => {
     t.truthy(m.id);
-    t.truthy(m.email);
+    t.truthy(m.emailOrUserName);
   });
   t.true(members.length > 0);
 });
@@ -43,25 +43,25 @@ test('we can fetch all members with only the id', async (t) => {
   // Every member contains the id field, but not the email field
   members.map((m) => {
     t.truthy(m.id);
-    t.falsy(m.email);
+    t.falsy(m.emailOrUserName);
   });
   t.true(members.length > 0);
 });
 
 test('we can fetch a single member by id', async (t) => {
-  const id = 1461395;
+  const id = 1831606;
   const member = await getMember(
     id,
-    '{id,contactDetails{name, privateEmail},email,membershipNumber,memberGroups}'
+    '{id,contactDetails{name, privateEmail},emailOrUserName,membershipNumber,memberGroups}'
   );
   t.is<number>(member.id, id);
   t.truthy(member.membershipNumber);
-  t.truthy(member.email);
+  t.truthy(member.emailOrUserName);
   t.falsy(member.joinDate);
 });
 
 test('we can change the membership number of a single member', async (t) => {
-  const id = 1461395;
+  const id = 1831606;
   const randomMembership = (Math.random() * 100).toFixed();
   const member = await updateMember(id, { membershipNumber: randomMembership });
   t.is<number>(member.id, id);
@@ -89,14 +89,14 @@ test('we can fetch all invoices with only the id', async (t) => {
 });
 
 test('we can fetch a single invoice by id', async (t) => {
-  const id = 51152175;
+  const id = 92357835;
   const invoice = await getInvoice(
     id,
-    '{id,totalPrice,relatedAddress{id, referencedMemberPK},kind}'
+    '{id,totalPrice,relatedAddress{id,member{id}},kind}'
   );
   t.is<number>(invoice.id, id);
   t.truthy(invoice.totalPrice);
-  t.truthy(invoice.relatedAddress.id);
+  t.truthy(invoice.relatedAddress.member.id);
   t.falsy(invoice.org);
 });
 
@@ -121,7 +121,7 @@ test('we can fetch all bookings with only the id', async (t) => {
 });
 
 test('we can fetch a single booking by id', async (t) => {
-  const id = 55205784;
+  const id = 92357835;
   const booking = await getBooking(
     id,
     '{id,amount,relatedInvoice{id,totalPrice},date}'

@@ -1,3 +1,4 @@
+import { Member } from './Member';
 import { Organization } from './Organization';
 
 export type ContactDetail = {
@@ -43,7 +44,7 @@ export type ContactDetail = {
   readonly sepaDate?: string;
   readonly methodOfPayment: number;
   readonly methodOfPaymentName: string;
-  readonly referencedMemberPK: number;
+  readonly member: Member;
   readonly datevAccountNumber: number;
   readonly copiedInstances: readonly unknown[];
   readonly groups: readonly unknown[];

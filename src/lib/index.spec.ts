@@ -1,4 +1,5 @@
 import test from 'ava';
+import 'dotenv/config';
 
 import { getMember, getMembers, updateMember } from './member';
 import { getOrganization } from './organization';
@@ -49,7 +50,7 @@ test('we can fetch all members with only the id', async (t) => {
 });
 
 test('we can fetch a single member by id', async (t) => {
-  const id = 1831606;
+  const id = parseInt(process.env.TEST_MEMBER_ID);
   const member = await getMember(
     id,
     '{id,contactDetails{name, privateEmail},emailOrUserName,membershipNumber,memberGroups}'
@@ -61,7 +62,7 @@ test('we can fetch a single member by id', async (t) => {
 });
 
 test('we can change the membership number of a single member', async (t) => {
-  const id = 1831606;
+  const id = parseInt(process.env.TEST_MEMBER_ID);
   const randomMembership = (Math.random() * 100).toFixed();
   const member = await updateMember(id, { membershipNumber: randomMembership });
   t.is<number>(member.id, id);
@@ -89,7 +90,7 @@ test('we can fetch all invoices with only the id', async (t) => {
 });
 
 test('we can fetch a single invoice by id', async (t) => {
-  const id = 92357835;
+  const id = parseInt(process.env.TEST_INVOICE_ID);
   const invoice = await getInvoice(
     id,
     '{id,totalPrice,relatedAddress{id,member{id}},kind}'
@@ -121,7 +122,7 @@ test('we can fetch all bookings with only the id', async (t) => {
 });
 
 test('we can fetch a single booking by id', async (t) => {
-  const id = 92357835;
+  const id = parseInt(process.env.TEST_BOOKING_ID);
   const booking = await getBooking(
     id,
     '{id,amount,relatedInvoice{id,totalPrice},date}'
